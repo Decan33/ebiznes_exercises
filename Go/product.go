@@ -1,24 +1,23 @@
 package main
 
 type Product struct {
-	productId   int
-	name        string
-	description string
-	price       int
+	ProductId   int    `json:"productId"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Price       int    `json:"price"`
 }
 
 type BuyingRequest struct {
-	name  string
-	price int
+	Name string `json:"name"`
 }
 
 type PaymentRequest struct {
-	amount int
+	Amount int `json:"amount"`
 }
 
 type CartItem struct {
-	amount  int
-	product Product
+	Amount  int     `json:"amount"`
+	Product Product `json:"product"`
 }
 
 type ProductManager struct {
@@ -30,34 +29,35 @@ type CartManager struct {
 }
 
 func NewProductManager() ProductManager {
-	return ProductManager{
+	manager := ProductManager{
 		products: []Product{
 			{
-				productId:   1,
-				name:        "Zajebista koszulka",
-				description: "Nie ma co, musisz ja kupic",
-				price:       999,
+				ProductId:   1,
+				Name:        "Zajebista koszulka",
+				Description: "Nie ma co, musisz ja kupic",
+				Price:       999,
 			},
 			{
-				productId:   2,
-				name:        "Zajebisty zegarek",
-				description: "Pokazuje czas lepiej niz kazdy inny",
-				price:       69,
+				ProductId:   2,
+				Name:        "Zajebisty zegarek",
+				Description: "Pokazuje czas lepiej niz kazdy inny",
+				Price:       69,
 			},
 			{
-				productId:   3,
-				name:        "Zaliczenie z Ebiznesu",
-				description: "Fajnie byloby miec co nie",
-				price:       420,
+				ProductId:   3,
+				Name:        "Zaliczenie z Ebiznesu",
+				Description: "Fajnie byloby miec co nie",
+				Price:       420,
 			},
 			{
-				productId:   4,
-				name:        "3.0 z PRiRu",
-				description: "Nieosiągalne",
-				price:       0,
+				ProductId:   4,
+				Name:        "3.0 z PRiRu",
+				Description: "Nieosiągalne",
+				Price:       0,
 			},
 		},
 	}
+	return manager
 }
 
 func NewBlankCart() CartManager {

@@ -24,6 +24,7 @@ func main() {
 	e.GET("/products", func(context echo.Context) error {
 
 		products := productManager.GetAll()
+		fmt.Println(products)
 		return context.JSON(http.StatusOK, products)
 	})
 
@@ -37,12 +38,16 @@ func main() {
 
 		req := new(BuyingRequest)
 		if err := context.Bind(req); err != nil {
-			return nil
+			return err
 		}
 
-		product := productManager.GetByName(req.name)
+		product, secondErr := productManager.GetByName(req.Name)
 
-		cart.addToCart(product)
+		if secondErr != nil {
+			return context.JSON(http.StatusNotFound, "asdf")
+		}
+
+		cart.AddToCart(product)
 
 		return context.JSON(http.StatusOK, "Ok!")
 	})
@@ -55,12 +60,12 @@ func main() {
 			return nil
 		}
 
-		paymentAmount := req.amount
+		paymentAmount := req.Amount
 
 		items := cart.items
 		sum := 0
 		for _, item := range items {
-			sum += item.amount * item.product.price
+			sum += item.Amount * item.Product.Price
 		}
 
 		if paymentAmount < sum {
@@ -68,6 +73,7 @@ func main() {
 		}
 
 		remainder := paymentAmount - sum
+		cart.items = nil
 		return ctx.JSON(http.StatusOK, fmt.Sprintf("We have to return you %d zlotys!", remainder))
 	})
 

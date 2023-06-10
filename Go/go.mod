@@ -2,7 +2,10 @@ module ebiznes.uj.edu.pl/echo
 
 go 1.20
 
-require github.com/labstack/echo v3.3.10+incompatible
+require (
+	github.com/labstack/echo v3.3.10+incompatible
+	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
+)
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect

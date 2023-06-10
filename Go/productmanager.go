@@ -1,39 +1,50 @@
 package main
 
-import "golang.org/x/exp/slices"
+import (
+	"fmt"
+
+	"golang.org/x/exp/slices"
+)
 
 func (manager *ProductManager) GetAll() []Product {
 	return manager.products
 }
 
-func (manager *ProductManager) GetByName(name string) Product {
+func (manager *ProductManager) GetByName(name string) (Product, error) {
 	index := slices.IndexFunc(manager.products, func(product Product) bool {
-		return product.name == name
+		return product.Name == name
 	})
 
-	return manager.products[index]
+	if index == -1 {
+		return Product{}, fmt.Errorf("product not found")
+	}
+
+	return manager.products[index], nil
 }
 
-func (cart *CartManager) addToCart(product Product) {
+func (cart *CartManager) AddToCart(product Product) {
 	if len(cart.items) == 0 {
 		cart.items = append(cart.items, CartItem{
-			amount:  1,
-			product: product,
+			Amount:  1,
+			Product: product,
 		})
+
+		return
 	}
 
 	index := slices.IndexFunc(cart.items, func(item CartItem) bool {
-		return item.product == product
+		return item.Product == product
 	})
 
 	if index == -1 {
 		cart.items = append(cart.items, CartItem{
-			amount:  1,
-			product: product,
+			Amount:  1,
+			Product: product,
 		})
+		return
 	}
 
-	cart.items[index].amount += 1
+	cart.items[index].Amount += 1
 }
 
 func (cart *CartManager) GetAllCartItems() []CartItem {
