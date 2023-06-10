@@ -1,19 +1,23 @@
 package main
 
 type Product struct {
-	productId int
-	name      string
+	productId   int
+	name        string
 	description string
-	price     int
+	price       int
 }
 
 type BuyingRequest struct {
-	name      string
-	price     int
+	name  string
+	price int
+}
+
+type PaymentRequest struct {
+	amount int
 }
 
 type CartItem struct {
-	amount int
+	amount  int
 	product Product
 }
 
@@ -29,28 +33,28 @@ func NewProductManager() ProductManager {
 	return ProductManager{
 		products: []Product{
 			{
-				productId: 1,
-				name: "Zajebista koszulka",
+				productId:   1,
+				name:        "Zajebista koszulka",
 				description: "Nie ma co, musisz ja kupic",
-				price: 999,
+				price:       999,
 			},
 			{
-				productId: 2,
-				name: "Zajebisty zegarek",
+				productId:   2,
+				name:        "Zajebisty zegarek",
 				description: "Pokazuje czas lepiej niz kazdy inny",
-				price: 69,
+				price:       69,
 			},
 			{
-				productId: 3,
-				name: "Zaliczenie z Ebiznesu",
+				productId:   3,
+				name:        "Zaliczenie z Ebiznesu",
 				description: "Fajnie byloby miec co nie",
-				price: 420,
+				price:       420,
 			},
 			{
-				productId: 4,
-				name: "3.0 z PRiRu",
+				productId:   4,
+				name:        "3.0 z PRiRu",
 				description: "Nieosiągalne",
-				price: 0,
+				price:       0,
 			},
 		},
 	}

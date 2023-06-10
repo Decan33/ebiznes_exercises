@@ -17,7 +17,7 @@ func (manager *ProductManager) GetByName(name string) Product {
 func (cart *CartManager) addToCart(product Product) {
 	if len(cart.items) == 0 {
 		cart.items = append(cart.items, CartItem{
-			amount: 1,
+			amount:  1,
 			product: product,
 		})
 	}
@@ -28,10 +28,14 @@ func (cart *CartManager) addToCart(product Product) {
 
 	if index == -1 {
 		cart.items = append(cart.items, CartItem{
-			amount: 1,
+			amount:  1,
 			product: product,
 		})
 	}
 
 	cart.items[index].amount += 1
+}
+
+func (cart *CartManager) GetAllCartItems() []CartItem {
+	return cart.items
 }
