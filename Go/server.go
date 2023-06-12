@@ -12,6 +12,7 @@ func main() {
 	e := echo.New()
 	productManager := NewProductManager()
 	cart := NewBlankCart()
+	registeredUsersDatabase := NewDatabase()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -75,6 +76,28 @@ func main() {
 		remainder := paymentAmount - sum
 		cart.items = nil
 		return ctx.JSON(http.StatusOK, fmt.Sprintf("We have to return you %d zlotys!", remainder))
+	})
+
+	e.POST("/log", func(ctx echo.Context) error {
+
+		req := new(LogInRequest)
+
+		if err := ctx.Bind(req); err != nil {
+			return nil
+		}
+
+		login := req.Login
+		password := req.Password
+
+		credentials := LogInCredentials{
+			login:    login,
+			password: password,
+		}
+
+		if registeredUsersDatabase.LogUser(credentials) {
+			return ctx.JSON(http.StatusOK, "User logged in successfully!")
+		}
+		return ctx.JSON(http.StatusNotFound, "We could not find the user :(")
 	})
 
 	e.Logger.Fatal(e.Start(":5000"))

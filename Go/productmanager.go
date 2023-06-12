@@ -50,3 +50,7 @@ func (cart *CartManager) AddToCart(product Product) {
 func (cart *CartManager) GetAllCartItems() []CartItem {
 	return cart.items
 }
+
+func (database *TotallyNotLoginDatabase) LogUser(credentials LogInCredentials) bool {
+	return slices.Contains[LogInCredentials](database.registeredUsers, credentials)
+}

@@ -15,6 +15,16 @@ type PaymentRequest struct {
 	Amount int `json:"amount"`
 }
 
+type LogInRequest struct {
+	Login    string `json:"amount"`
+	Password string `json:"password"`
+}
+
+type LogInCredentials struct {
+	login    string
+	password string
+}
+
 type CartItem struct {
 	Amount  int     `json:"amount"`
 	Product Product `json:"product"`
@@ -26,6 +36,21 @@ type ProductManager struct {
 
 type CartManager struct {
 	items []CartItem
+}
+
+type TotallyNotLoginDatabase struct {
+	registeredUsers []LogInCredentials
+}
+
+func NewDatabase() TotallyNotLoginDatabase {
+	return TotallyNotLoginDatabase{
+		registeredUsers: []LogInCredentials{
+			{
+				login:    "admin",
+				password: "admin",
+			},
+		},
+	}
 }
 
 func NewProductManager() ProductManager {
