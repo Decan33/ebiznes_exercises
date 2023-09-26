@@ -7,13 +7,13 @@ import (
 )
 
 type CreateNewProduct struct {
-	name  string `json:"name"`
-	price int    `json:"price"`
+	name  string
+	price int
 }
 
 type ChangeContentsProduct struct {
-	name  string `json:"name"`
-	price int    `json:"price"`
+	name  string
+	price int
 }
 
 func (manager *ProductManager) GetAll() []Product {
